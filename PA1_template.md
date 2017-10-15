@@ -3,7 +3,7 @@ title: 'Project 1:  Reproducible Research'
 author: "Austin L. Bistline"
 date: "September 10, 2017"
 output: 
-      html_document
+      html_document:
       keep_md: true
 ---
 
@@ -84,7 +84,7 @@ hist(total.steps.per.day, breaks = length(total.steps.per.day),
      xlab = "Steps per Day", ylab = "Number of Days", col = "orange")
 ```
 
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
 
 3. Calculate and report the mean and median of the total number of steps taken each day
 
@@ -120,7 +120,7 @@ plot(unique(steps.NA.rm[, 3]), mean.steps.per.interval, type = "l",
      xlab = "Time (24 Hour Clock)", ylab = "Steps")
 ```
 
-![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png)
+![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8-1.png)
 
 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
@@ -253,7 +253,7 @@ hist(complete.total.steps.per.day, breaks = length(complete.total.steps.per.day)
      xlab = "Steps per Day", ylab = "Number of Days", col = "orange")
 ```
 
-![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-13-1.png)
+![plot of chunk unnamed-chunk-14](figure/unnamed-chunk-14-1.png)
 
 Calculating the mean of the complete steps dataframe.
 
@@ -337,8 +337,5 @@ average.df = as.data.frame(cbind(average.steps, interval, as.factor(days)))
 xyplot(average.steps ~ interval|days, data = average.df, main="Average Steps per Interval (Weekend vs. Weekday)", xlab="Time (24-hour format)", ylab = "Average Number of Steps", layout=c(1,2), type = "l")
 ```
 
-![plot of chunk unnamed-chunk-17](figure/unnamed-chunk-17-1.png)
-
-
-
+![plot of chunk unnamed-chunk-18](figure/unnamed-chunk-18-1.png)
 

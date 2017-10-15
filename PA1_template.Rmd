@@ -10,14 +10,14 @@ output:
 ## Loading and preprocessing the da
 1. Load the data
 
-```{r}
+```{r, echo = TRUE}
 steps.df <- read.csv("activity.csv", header = TRUE, stringsAsFactors = FALSE)
 head(steps.df)
 ```
 
 2. Process/transform the data into a useable format - removing rows containing NA's
 
-```{r}
+```{r, echo = TRUE}
 steps.NA.rm <- na.omit(steps.df)
 head(steps.NA.rm)
 ```
@@ -26,14 +26,14 @@ head(steps.NA.rm)
 
 1. Calculate the number of steps taken per day
 
-```{r}
+```{r, echo = TRUE}
 total.steps.per.day <- with(steps.NA.rm, tapply(steps, date, sum))
 total.steps.per.day
 ```
 
 2. Make a histogram of the total number of steps taken each day
 
-```{r}
+```{r, echo = TRUE}
 hist(total.steps.per.day, breaks = length(total.steps.per.day),
      main = "Histogram of Total Steps Each Day",
      xlab = "Steps per Day", ylab = "Number of Days", col = "orange")
@@ -41,11 +41,11 @@ hist(total.steps.per.day, breaks = length(total.steps.per.day),
 
 3. Calculate and report the mean and median of the total number of steps taken each day
 
-```{r}
+```{r, echo = TRUE}
 mean.steps <- mean(total.steps.per.day)
 paste("The mean number of steps is ", mean.steps)
 ```
-```{r}
+```{r, echo = TRUE}
 median.steps <- median(total.steps.per.day)
 paste("The median number of steps is ", median.steps)
 ```
@@ -55,7 +55,7 @@ paste("The median number of steps is ", median.steps)
 
 1. Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 
-```{r}
+```{r, echo = TRUE}
 mean.steps.per.interval <- with(steps.NA.rm, tapply(steps, interval, mean))
 plot(unique(steps.NA.rm[, 3]), mean.steps.per.interval, type = "l",
      main = "Steps taken during each 5-minute interval",
@@ -64,7 +64,7 @@ plot(unique(steps.NA.rm[, 3]), mean.steps.per.interval, type = "l",
 
 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
-```{r}
+```{r, echo = TRUE}
 time.of.max <- steps.NA.rm[which.max(mean.steps.per.interval), 3]
 print(paste("On average, the greatest number of steps occurs at ", time.of.max, "(24-hour time-format)"))
 ```
@@ -77,7 +77,7 @@ Note that there are a number of days/intervals where there are missing values (c
 
 1. Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
 
-```{r}
+```{r, echo = TRUE}
 paste("There are a total of", nrow(steps.df) - nrow(steps.NA.rm), "missing values out of", nrow(steps.df), "data points recorded")
 paste("This is ", round((nrow(steps.df)-nrow(steps.NA.rm))/nrow(steps.df)*100, 2), "% of total values.")
 
@@ -92,13 +92,13 @@ ii. Detect rows where NA's occur in column 1 of the original data frame, "steps.
 
 3. Create a new dataset that is equal to the original dataset but with the missing data filled in.
 
-```{r}
+```{r, echo = TRUE}
 ls.of.averages <- data.frame(interval = unique(steps.NA.rm[, 3]), 
                              steps = mean.steps.per.interval)
 head(ls.of.averages)
 ```
 
-```{r}
+```{r, echo = TRUE}
 # Initialize a copy dataframe of steps.df
 complete.steps.df <- steps.df
 
@@ -115,14 +115,14 @@ summary(complete.steps.df)
 4. Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of inputing missing data on the estimates of the total daily number of steps?
 
 Calculating total steps per day from the complete steps dataframe.
-```{r}
+```{r, echo = TRUE}
 complete.total.steps.per.day <- with(complete.steps.df, tapply(steps, date, sum))
 complete.total.steps.per.day
 ```
 
 Creating the new histogram.
 
-```{r}
+```{r, echo = TRUE}
 hist(complete.total.steps.per.day, breaks = length(complete.total.steps.per.day),
      main = "Histogram of Complete Total Steps Each Day",
      xlab = "Steps per Day", ylab = "Number of Days", col = "orange")
@@ -130,7 +130,7 @@ hist(complete.total.steps.per.day, breaks = length(complete.total.steps.per.day)
 
 Calculating the mean of the complete steps dataframe.
 
-```{r}
+```{r, echo = TRUE}
 mean.complete.steps <- mean(complete.total.steps.per.day)
 paste("The mean number of steps of the complete steps dataframe is ", round(mean.complete.steps, 2))
 paste("This is a change of ", abs(mean.complete.steps-mean.steps), "from before NA's were replaced.")
@@ -138,7 +138,7 @@ paste("This is a change of ", abs(mean.complete.steps-mean.steps), "from before 
 
 Calculating the median of the complete steps dataframe.
 
-```{r}
+```{r, echo = TRUE}
 median.complete.steps <- median(complete.total.steps.per.day)
 paste("The median number of steps of the complete steps datafrme is ", median.complete.steps)
 paste("This is a change of ", abs(median.complete.steps-median.steps))
@@ -152,7 +152,7 @@ The impact of replacing missing values in the steps dataframe is very minimal wi
 
 1. Create a new factor variable in the dataset with two levels - "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
 
-```{r}
+```{r, echo = TRUE}
 library(dplyr)
 day = weekdays(as.Date(steps.df[, 2]))
 day.factor = rep(0, length(day))
@@ -169,7 +169,7 @@ complete.steps.df <- mutate(complete.steps.df, day = as.factor(day.factor))
 
 2. Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data.
 
-```{r}
+```{r, echo = TRUE}
 library(lattice)
 weekday.steps <- complete.steps.df[complete.steps.df$day == "weekday", ]
 weekend.steps <- complete.steps.df[complete.steps.df$day == "weekend", ]
@@ -183,7 +183,4 @@ average.df = as.data.frame(cbind(average.steps, interval, as.factor(days)))
 
 xyplot(average.steps ~ interval|days, data = average.df, main="Average Steps per Interval (Weekend vs. Weekday)", xlab="Time (24-hour format)", ylab = "Average Number of Steps", layout=c(1,2), type = "l")
 ```
-
-
-
 
